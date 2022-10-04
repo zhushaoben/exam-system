@@ -124,7 +124,7 @@ export default {
         },
         {
           value: 2,
-          label: '指定部门'
+          label: '指定小组'
         }
       ],
 

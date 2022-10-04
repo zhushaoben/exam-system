@@ -47,7 +47,7 @@
         />
 
         <el-table-column
-          label="部门"
+          label="小组"
           align="center"
           prop="departId_dictText"
         />

@@ -167,7 +167,7 @@
 
       <el-radio-group v-model="postForm.openType" style="margin-bottom: 20px">
         <el-radio :label="1" border>完全公开</el-radio>
-        <el-radio :label="2" border>部门开放</el-radio>
+        <el-radio :label="2" border>小组开放</el-radio>
       </el-radio-group>
 
       <el-alert

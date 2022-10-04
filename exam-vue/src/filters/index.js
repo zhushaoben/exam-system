@@ -44,7 +44,7 @@ export function paperStateFilter(value) {
 export function examOpenType(value) {
   const map = {
     '1': '完全公开',
-    '2': '指定部门'
+    '2': '指定小组'
   }
   return map[value]
 }

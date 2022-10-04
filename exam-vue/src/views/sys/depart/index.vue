@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
 
-      <el-input v-model="listQuery.params.deptName" style="width: 200px" placeholder="搜索公司名称" class="filter-item" />
+      <el-input v-model="listQuery.params.deptName" style="width: 200px" placeholder="搜索小组名称" class="filter-item" />
 
       <el-button class="filter-item" type="primary" icon="el-icon-plus" @click="formDialog(0)">
         添加
@@ -45,11 +45,11 @@
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :visible.sync="dialogFormVisible"
-      title="维护部门"
+      title="维护小组"
       width="30%"
     >
       <el-form ref="postForm" :model="postForm" :rules="rules" label-width="100px" label-position="left">
-        <el-form-item label="部门名称" prop="deptName">
+        <el-form-item label="小组名称" prop="deptName">
           <el-input v-model="postForm.deptName" />
         </el-form-item>
       </el-form>
@@ -76,7 +76,7 @@ export default {
       postForm: {},
       rules: {
         deptName: [
-          { required: true, message: '部门名称不能为空！' }
+          { required: true, message: '小组名称不能为空！' }
         ]
       },
       dialogFormVisible: false,

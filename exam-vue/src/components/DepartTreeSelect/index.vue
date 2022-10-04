@@ -14,7 +14,7 @@
       :props="props"
       :expand-on-click-node="false"
       :filter-node-method="filterNode"
-      placeholder="选择部门"
+      placeholder="选择小组"
       class="select-tree"
       check-strictly="false"
       highlight-current

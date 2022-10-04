@@ -61,7 +61,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '控制台', icon: 'dashboard', affix: true }
+        meta: { title: '系统简介', icon: 'dashboard', affix: true }
       },
 
       {
@@ -98,7 +98,7 @@ export const asyncRoutes = [
 
   {
     path: '/exam/start/:id',
-    component: () => import('@/views/paper/exam/exam'),
+    component: () => import('@/views/error-page/404'),
     name: 'StartExam',
     meta: { title: '开始考试' },
     hidden: true
@@ -118,14 +118,14 @@ export const asyncRoutes = [
 
       {
         path: 'exam',
-        component: () => import('@/views/paper/exam/list'),
+        component: () => import('@/views/error-page/404'),
         name: 'ExamOnline',
         meta: { title: '在线考试', noCache: true, icon: 'guide' }
       },
 
       {
         path: 'exam/prepare/:examId',
-        component: () => import('@/views/paper/exam/preview'),
+        component: () => import('@/views/error-page/404'),
         name: 'PreExam',
         meta: { title: '准备考试', noCache: true, activeMenu: '/my/exam' },
         hidden: true
@@ -133,7 +133,7 @@ export const asyncRoutes = [
 
       {
         path: 'exam/result/:id',
-        component: () => import('@/views/paper/exam/result'),
+        component: () => import('@/views/error-page/404'),
         name: 'ShowExam',
         meta: { title: '考试结果', noCache: true, activeMenu: '/online/exam' },
         hidden: true
@@ -141,14 +141,14 @@ export const asyncRoutes = [
 
       {
         path: 'exam/records',
-        component: () => import('@/views/user/exam/my'),
+        component: () => import('@/views/error-page/404'),
         name: 'ListMyExam',
-        meta: { title: '我的成绩', noCache: true, icon: 'results' }
+        meta: { title: '成绩查询', noCache: true, icon: 'results' }
       },
 
       {
         path: 'book/list/:examId',
-        component: () => import('@/views/user/book'),
+        component: () => import('@/views/error-page/404'),
         name: 'BookList',
         meta: { title: '考试错题', noCache: true, activeMenu: '/my/exam/records' },
         hidden: true
@@ -156,7 +156,7 @@ export const asyncRoutes = [
 
       {
         path: 'book/training/:examId',
-        component: () => import('@/views/user/book/train'),
+        component: () => import('@/views/error-page/404'),
         name: 'BookTraining',
         meta: { title: '错题训练', noCache: true, activeMenu: '/my/exam/records' },
         hidden: true
@@ -284,7 +284,7 @@ export const asyncRoutes = [
         path: 'depart',
         component: () => import('@/views/sys/depart'),
         name: 'SysDepart',
-        meta: { title: '部门管理', icon: 'tree' }
+        meta: { title: '小组管理', icon: 'tree' }
       },
 
       {
