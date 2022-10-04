@@ -274,13 +274,6 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'config',
-        component: () => import('@/views/sys/config'),
-        name: 'SysConfig',
-        meta: { title: '系统配置', icon: 'theme' }
-      },
-
-      {
         path: 'depart',
         component: () => import('@/views/sys/depart'),
         name: 'SysDepart',
