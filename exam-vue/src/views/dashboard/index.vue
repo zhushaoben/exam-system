@@ -1,69 +1,116 @@
 <template>
   <div class="app-container">
-    <div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
-      <h1>考试管理系统<button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
-      <h2>项目演示<button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
-      <p>管理账号：admin/admin <br>学员账号：person/person   </p>
-      <h2>介绍<button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
-      <p>一款多用户在线培训考试系统，系统集成了用户管理、小组管理、题库管理、试题管理、试题导入导出、考试管理、在线考试、错题训练等功能，考试流程完善。</p>
-      <h2>技术栈<button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
-      <p><em id="__mceDel">SpringBoot / Shiro / Vue / MySQL</em></p>
-      <h2>产品功能<button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
-      <p>系统完善：完善的权限控制和用户系统<br>权限控制：基于Shiro和JWT开发的权限控制功能。    <br>用户系统：用户管理、小组管理等。    </p>
-      <p>多用户：多用户支持    <br>考试端：学生用户、支持在线考试、查看分数、训练错题。    <br>管理端：题库管理、试题管理、考试管理、用户小组管理、查看考试情况等等。    </p>
-      <p>考试权限：考试权限定义<br>完全公开：任何人员都可以参与考试。    <br>指定小组：只有选中小组的人员才可以看到考试。    </p>
-      <p>多题型：常用题型支持    <br>支持题型：单选题、多选题、判断题。    <br>难易程度：普通、困难。    </p>
-      <p>便捷组卷：题库组卷    <br>题库组卷：指定题库、分数、数量；题目、选项随机排序</p>
-    </div>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-card class="box">
+          <div slot="header" class="clearfix">
+            <h1>考试管理系统</h1>
+          </div>
+
+          <div style="line-height: 32px;">
+
+            <div class="title" style="padding-top: 0px">系统介绍</div>
+            一款多用户在线考试系统，系统集成了用户管理、小组管理、题库管理、试题管理、考试管理、在线考试等功能，操作界面简易，运行流畅。
+
+            <div class="title">技术栈</div>
+            <div class="tags">
+              <el-tag>SpringBoot</el-tag>
+              <el-tag>Shiro</el-tag>
+              <el-tag>JWT</el-tag>
+              <el-tag>Vue</el-tag>
+              <el-tag>MySQL</el-tag>
+            </div>
+
+            <div class="title">系统功能</div>
+            <div>
+              <div>权限控制：基于Shiro和JWT开发的权限控制功能。</div>
+              <div>基础功能：系统配置、用户管理、小组管理、权限管理等。</div>
+              <div>题库管理：支持单选题、多选题、判断题，支持自动判题</div>
+              <div>考试权限：支持指定考试范围：完全公开、指定部分小组考试、试卷随机抽题</div>
+              <div>在线考试：学生在线考试、考试计时、查看分数和解析。</div>
+            </div>
+
+
+
+          </div>
+
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box" shadow="hover" style="min-height: 100%;height: 100%;">
+          <div class="title">开发成员</div>
+          <div>
+           游万里、张云飞、朱少本、刘洋、凌好、张康、樊帝冲
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box" shadow="hover" style="min-height: 100%;height: 100%; margin-top: 50px">
+          <div class="title">管理员帐号</div>
+          <div>
+            用户名：admin
+            密码：admin
+          </div>
+
+          <div class="title">学生帐号</div>
+          <div>
+            用户名：person
+            密码：person
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
+  import config from '../../../package.json'
 
-export default {
-  name: 'Dashboard',
-  data() {
-    return {
-      currentRole: 'adminDashboard'
+  export default {
+    name: 'Dashboard',
+    data() {
+      return {
+        currentRole: 'adminDashboard',
+        version: config.version
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'roles',
+        'siteData'
+      ])
+    },
+    created() {
+
     }
-  },
-  computed: {
-    ...mapGetters([
-      'roles',
-      'siteData'
-    ])
-  },
-  created() {
-
   }
-}
 </script>
 
 <style scoped>
-.box{
-  height: calc(100vh - 120px);
-  font-size: 14px;
-  line-height: 28px;
-}
-.title{
-  font-size: 18px;
-  font-weight: 700;
-  padding-bottom: 10px;
-  padding-top: 20px;
-  margin-bottom: 10px;
-  border-bottom: #eee 1px dotted;
-}
+  .box{
+    height: calc(100vh - 120px);
+    font-size: 14px;
+    line-height: 28px;
+  }
+  .title{
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: #eee 1px dotted;
+  }
 
-.tags span{
-  margin-right: 10px;
-}
+  .tags span{
+    margin-right: 10px;
+  }
 
-.box a{
-  color: #20a0ff;
-}
+  .box a{
+    color: #20a0ff;
+  }
 
-.box a:hover{
-  color: #ff0000;
-}
+  .box a:hover{
+    color: #ff0000;
+  }
 </style>

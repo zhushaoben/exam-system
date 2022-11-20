@@ -3,12 +3,11 @@
 
     <div class="filter-container">
 
-      <slot name="filter-content" />
 
-      <el-row>
-        <el-col>
-          <el-button v-if="options.addRoute" type="primary" icon="el-icon-plus" @click="handleAdd">添加</el-button>
-        </el-col>
+
+      <slot name="filter-content" style="display: inline-block;"/>
+      <el-row >
+          <el-button v-if="options.addRoute" type="primary" icon="el-icon-plus" @click="handleAdd"  >添加</el-button>
       </el-row>
 
     </div>
