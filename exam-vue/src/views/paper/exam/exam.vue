@@ -52,7 +52,7 @@
 
       </el-col>
 
-      <el-col :span="18" :xs="24">
+      <el-col :span="12" :xs="24">
 
         <el-card class="qu-content">
           <p v-if="quData.content">{{ quData.sort + 1 }}.{{ quData.content }}</p>

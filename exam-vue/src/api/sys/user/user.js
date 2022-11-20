@@ -8,6 +8,10 @@ export function saveData(data) {
   return post('/exam/api/sys/user/save', data)
 }
 
+export function deleteOne(data) {
+  return post('/exam/api/sys/user/delete', data)
+}
+
 export function userReg(data) {
   return post('/exam/api/sys/user/reg', data)
 }

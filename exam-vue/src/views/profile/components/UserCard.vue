@@ -8,12 +8,12 @@
       <div class="box-center">
         <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
           <div>欢迎</div>
-          {{ user.role }}
+          {{ user.name }}
         </pan-thumb>
       </div>
       <div class="box-center">
-        <div class="user-name text-center">{{ user.name }}</div>
-        <div class="user-role text-center text-muted">{{ user.role | uppercaseFirst }}</div>
+        <div class="user-name text-center">用户名：{{ user.name }}</div>
+        <div class="user-role text-center text-muted">权限：{{ user.role | uppercaseFirst }}</div>
       </div>
     </div>
   </el-card>

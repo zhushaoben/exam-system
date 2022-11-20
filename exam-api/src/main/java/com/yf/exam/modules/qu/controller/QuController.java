@@ -1,5 +1,6 @@
 package com.yf.exam.modules.qu.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
@@ -18,6 +19,10 @@ import com.yf.exam.modules.qu.dto.export.QuExportDTO;
 import com.yf.exam.modules.qu.dto.ext.QuDetailDTO;
 import com.yf.exam.modules.qu.dto.request.QuQueryReqDTO;
 import com.yf.exam.modules.qu.entity.Qu;
+import com.yf.exam.modules.qu.entity.QuAnswer;
+import com.yf.exam.modules.qu.entity.QuRepo;
+import com.yf.exam.modules.qu.service.QuAnswerService;
+import com.yf.exam.modules.qu.service.QuRepoService;
 import com.yf.exam.modules.qu.service.QuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,8 +57,13 @@ import java.util.List;
 public class QuController extends BaseController {
 
     @Autowired
-    private QuService baseService;
+    private QuService quService;
 
+    @Autowired
+    private QuAnswerService quAnswerService;
+
+    @Autowired
+    private QuRepoService quRepoService;
     /**
      * 添加或修改
      *
@@ -63,7 +73,7 @@ public class QuController extends BaseController {
     @ApiOperation(value = "添加或修改")
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     public ApiRest<BaseIdRespDTO> save(@RequestBody QuDetailDTO reqDTO) {
-        baseService.save(reqDTO);
+        quService.save(reqDTO);
         return super.success();
     }
 
@@ -76,8 +86,18 @@ public class QuController extends BaseController {
     @ApiOperation(value = "批量删除")
     @RequestMapping(value = "/delete", method = {RequestMethod.POST})
     public ApiRest edit(@RequestBody BaseIdsReqDTO reqDTO) {
-        //根据ID删除
-        baseService.removeByIds(reqDTO.getIds());
+        //删除题目
+        quService.removeByIds(reqDTO.getIds());
+
+        //删除题目对应答案
+        LambdaQueryWrapper<QuAnswer> queryWrapper = new LambdaQueryWrapper<QuAnswer>();
+        queryWrapper.in(QuAnswer::getQuId, reqDTO.getIds());
+        quAnswerService.remove(queryWrapper);
+
+        //删除题目与仓库关联
+        LambdaQueryWrapper<QuRepo> queryWrapper2 = new LambdaQueryWrapper<QuRepo>();
+        queryWrapper2.in(QuRepo::getQuId, reqDTO.getIds());
+        quRepoService.remove(queryWrapper2);
         return super.success();
     }
 
@@ -90,7 +110,7 @@ public class QuController extends BaseController {
     @ApiOperation(value = "查找详情")
     @RequestMapping(value = "/detail", method = {RequestMethod.POST})
     public ApiRest<QuDetailDTO> detail(@RequestBody BaseIdReqDTO reqDTO) {
-        QuDetailDTO dto = baseService.detail(reqDTO.getId());
+        QuDetailDTO dto = quService.detail(reqDTO.getId());
         return super.success(dto);
     }
 
@@ -105,7 +125,7 @@ public class QuController extends BaseController {
     public ApiRest<IPage<QuDTO>> paging(@RequestBody PagingReqDTO<QuQueryReqDTO> reqDTO) {
 
         //分页查询并转换
-        IPage<QuDTO> page = baseService.paging(reqDTO);
+        IPage<QuDTO> page = quService.paging(reqDTO);
 
         return super.success(page);
     }
@@ -124,7 +144,7 @@ public class QuController extends BaseController {
         QueryWrapper<Qu> wrapper = new QueryWrapper<>();
 
         //转换并返回
-        List<Qu> list = baseService.list(wrapper);
+        List<Qu> list = quService.list(wrapper);
 
         //转换数据
         List<QuDTO> dtoList = BeanMapper.mapList(list, QuDTO.class);
@@ -148,7 +168,7 @@ public class QuController extends BaseController {
 
             int no = 0;
             String quId = "";
-            List<QuExportDTO> list = baseService.listForExport(reqDTO);
+            List<QuExportDTO> list = quService.listForExport(reqDTO);
             for (QuExportDTO item : list) {
                 if (!quId.equals(item.getQId())) {
                     quId = item.getQId();
@@ -189,7 +209,7 @@ public class QuController extends BaseController {
             this.checkExcel(list);
 
             // 导入数据条数
-            baseService.importExcel(list);
+            quService.importExcel(list);
 
             // 导入成功
             return super.success();

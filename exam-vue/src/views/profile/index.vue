@@ -7,10 +7,10 @@
           <user-card :user="user" />
         </el-col>
 
-        <el-col :span="18" :xs="24">
+        <el-col :span="6" :xs="24" >
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="修改资料" name="account">
+              <el-tab-pane label="修改个人资料" name="account">
                 <account :user="user" />
               </el-tab-pane>
             </el-tabs>

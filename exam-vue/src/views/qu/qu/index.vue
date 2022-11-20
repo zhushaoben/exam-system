@@ -162,13 +162,6 @@ export default {
           {
             value: 'delete',
             label: '删除'
-          }, {
-            value: 'enable',
-            label: '启用'
-          },
-          {
-            value: 'disable',
-            label: '禁用'
           },
           {
             value: 'add-repo',
@@ -183,8 +176,6 @@ export default {
         listUrl: '/exam/api/qu/qu/paging',
         // 删除请求URL
         deleteUrl: '/exam/api/qu/qu/delete',
-        // 启用禁用
-        stateUrl: '/exam/api/qu/qu//state',
         // 添加数据路由
         addRoute: 'AddQu'
       }

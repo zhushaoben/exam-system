@@ -98,7 +98,7 @@ export const asyncRoutes = [
 
   {
     path: '/exam/start/:id',
-    component: () => import('@/views/error-page/404'),
+    component: () => import('@/views/paper/exam/exam'),
     name: 'StartExam',
     meta: { title: '开始考试' },
     hidden: true
@@ -118,14 +118,14 @@ export const asyncRoutes = [
 
       {
         path: 'exam',
-        component: () => import('@/views/error-page/404'),
+        component: () => import('@/views/paper/exam/list'),
         name: 'ExamOnline',
         meta: { title: '在线考试', noCache: true, icon: 'guide' }
       },
 
       {
         path: 'exam/prepare/:examId',
-        component: () => import('@/views/error-page/404'),
+        component: () => import('@/views/paper/exam/preview'),
         name: 'PreExam',
         meta: { title: '准备考试', noCache: true, activeMenu: '/my/exam' },
         hidden: true
@@ -133,7 +133,7 @@ export const asyncRoutes = [
 
       {
         path: 'exam/result/:id',
-        component: () => import('@/views/error-page/404'),
+        component: () => import('@/views/paper/exam/result'),
         name: 'ShowExam',
         meta: { title: '考试结果', noCache: true, activeMenu: '/online/exam' },
         hidden: true
@@ -141,26 +141,11 @@ export const asyncRoutes = [
 
       {
         path: 'exam/records',
-        component: () => import('@/views/error-page/404'),
+        component: () => import('@/views/user/exam/my'),
         name: 'ListMyExam',
         meta: { title: '成绩查询', noCache: true, icon: 'results' }
       },
 
-      {
-        path: 'book/list/:examId',
-        component: () => import('@/views/error-page/404'),
-        name: 'BookList',
-        meta: { title: '考试错题', noCache: true, activeMenu: '/my/exam/records' },
-        hidden: true
-      },
-
-      {
-        path: 'book/training/:examId',
-        component: () => import('@/views/error-page/404'),
-        name: 'BookTraining',
-        meta: { title: '错题训练', noCache: true, activeMenu: '/my/exam/records' },
-        hidden: true
-      }
 
     ]
   },
@@ -280,12 +265,6 @@ export const asyncRoutes = [
         meta: { title: '小组管理', icon: 'tree' }
       },
 
-      {
-        path: 'role',
-        component: () => import('@/views/sys/role'),
-        name: 'SysRole',
-        meta: { title: '角色管理', icon: 'role' }
-      },
 
       {
         path: 'user',

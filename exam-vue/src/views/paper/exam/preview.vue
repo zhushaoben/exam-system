@@ -2,14 +2,14 @@
   <div class="app-container">
 
     <el-row :gutter="24">
+      <el-alert
+        title="点击`开始考试`后将自动进入考试，中途不能离开，请准备好再开始！"
+        type="error"
+        style="margin-bottom: 10px"
+      />
+      <el-col :span="12" style="margin-bottom: 20px">
 
-      <el-col :span="24" style="margin-bottom: 20px">
 
-        <el-alert
-          title="点击`开始考试`后将自动进入考试，请诚信考试！"
-          type="error"
-          style="margin-bottom: 10px"
-        />
 
         <el-card class="pre-exam">
 

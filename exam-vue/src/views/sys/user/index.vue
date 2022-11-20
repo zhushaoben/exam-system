@@ -11,7 +11,7 @@
 
       <template slot="filter-content">
 
-        <el-input v-model="listQuery.params.userName" style="width: 200px" placeholder="搜索登录名" class="filter-item" />
+        <el-input v-model="listQuery.params.userName" style="width: 200px" placeholder="搜索用户名" class="filter-item" />
         <el-input v-model="listQuery.params.realName" style="width: 200px" placeholder="搜索姓名" class="filter-item" />
 
         <el-button class="filter-item" type="primary" icon="el-icon-plus" @click="handleAdd">
@@ -45,7 +45,7 @@
 
         <el-table-column
           align="center"
-          label="角色"
+          label="权限"
           prop="roleIds"
         />
 
@@ -64,6 +64,19 @@
             {{ scope.row.state | stateFilter }}
           </template>
         </el-table-column>
+        <el-table-column
+            align="center"
+            label="操作"
+        >
+          <template slot-scope="scope">
+            <button type="button" class="el-button el-button--primary el-button--mini" @click="handleEdit(scope.$index, scope.row)">
+              <i class="el-icon-edit"></i><span>修改</span></button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i><span>删除</span></el-button>
+          </template>
+        </el-table-column>
 
       </template>
     </data-table>
@@ -73,22 +86,22 @@
       <el-form :model="formData" label-position="left" label-width="100px">
 
         <el-form-item label="用户名">
-          <el-input v-model="formData.userName" />
+          <el-input v-model="formData.userName" placeholder="请输入用户名" />
         </el-form-item>
 
         <el-form-item label="姓名">
-          <el-input v-model="formData.realName" />
+          <el-input v-model="formData.realName" placeholder="请输入姓名" />
         </el-form-item>
 
         <el-form-item label="密码">
-          <el-input v-model="formData.password" placeholder="不修改请留空" type="password" />
+          <el-input v-model="formData.password" show-password  placeholder="请输入密码" type="password" />
         </el-form-item>
 
         <el-form-item label="小组">
           <depart-tree-select v-model="formData.departId" :options="treeData" :props="defaultProps" />
         </el-form-item>
 
-        <el-form-item label="角色">
+        <el-form-item label="权限">
           <meet-role v-model="formData.roles" />
         </el-form-item>
 
@@ -100,13 +113,51 @@
         <!--        </el-form-item>-->
 
       </el-form>
-
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleSave">确 定</el-button>
       </div>
 
     </el-dialog>
+      <el-dialog :visible.sync="dialogVisible1" title="修改用户" width="500px">
+
+        <el-form :model="formData" label-position="left" label-width="100px">
+
+          <el-form-item label="用户名">
+            <el-input v-model="formData.userName" />
+          </el-form-item>
+
+          <el-form-item label="姓名">
+            <el-input v-model="formData.realName" />
+          </el-form-item>
+
+          <el-form-item label="密码">
+            <el-input v-model="formData.password" show-password placeholder="不修改请留空" type="password" />
+          </el-form-item>
+
+          <el-form-item label="小组">
+            <depart-tree-select v-model="formData.departId" :options="treeData" :props="defaultProps" />
+          </el-form-item>
+
+          <el-form-item label="权限">
+            <meet-role v-model="formData.roles" />
+          </el-form-item>
+
+          <!--        <el-form-item label="头像" prop="avatar">-->
+
+          <!--          <single-upload-->
+          <!--            v-model="formData.avatar"-->
+          <!--          />-->
+          <!--        </el-form-item>-->
+
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible1 = false">取 消</el-button>
+          <el-button type="primary" @click="handleSave">确 定</el-button>
+        </div>
+
+      </el-dialog>
 
   </div>
 
@@ -116,6 +167,7 @@
 import DataTable from '@/components/DataTable'
 import MeetRole from '@/components/MeetRole'
 import { saveData } from '@/api/sys/user/user'
+import { deleteOne } from '@/api/sys/user/user'
 import DepartTreeSelect from '@/components/DepartTreeSelect'
 import { fetchTree } from '@/api/sys/depart/depart'
 
@@ -143,7 +195,7 @@ export default {
         children: 'children'
       },
       dialogVisible: false,
-
+      dialogVisible1: false,
       listQuery: {
         current: 1,
         size: 10,
@@ -196,18 +248,41 @@ export default {
       this.formData = {}
       this.dialogVisible = true
     },
+    handleEdit(index,data){
+      Object.assign(this.formData,data)
+      this.formData.roles = data.roleIds.split(',')
+      this.formData.password = null
+      this.dialogVisible1=true
+    },
+    handleDelete(index,data){
+      this.$confirm('此操作将删除['+data.userName+'],是否继续', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteOne({ids:[data.id]}).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.$refs.pagingTable.getList()
+        }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+      });
+    },
+
 
     handleUpdate(row) {
-      this.dialogVisible = true
+      this.dialogVisible1 = true
       this.formData = row
       this.formData.roles = row.roleIds.split(',')
       this.formData.password = null
 
       console.log(JSON.stringify(this.formData))
-    },
-
-    departSelected(data) {
-      this.formData.departId = data.id
     },
     handleSave() {
       saveData(this.formData).then(() => {

@@ -10,7 +10,7 @@
     reserve-keyword
     clearable
     automatic-dropdown
-    placeholder="请选择角色"
+    placeholder="请选择权限"
     @change="handlerChange"
   >
     <el-option

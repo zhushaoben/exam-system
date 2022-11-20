@@ -80,7 +80,7 @@ const actions = {
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
-          reject('用户角色不能为空！')
+          reject('用户权限不能为空！')
         }
 
         commit('SET_ID', id)
