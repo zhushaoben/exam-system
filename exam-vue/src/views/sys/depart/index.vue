@@ -137,8 +137,8 @@ export default {
       pagingTree(this.listQuery).then(response => {
         this.tableData = response.data
         this.listLoading = false
-      })
-    },
+      });
+   },
 
     handleSort(id, sort) {
       sortData(id, sort).then(() => {

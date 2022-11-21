@@ -34,7 +34,3 @@ conf:
 swagger:
   enable: true
 
-logging:
-  level:
-    root: debug
-  path: logs/${spring.application.name}/
